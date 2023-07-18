@@ -68,6 +68,6 @@
         }
     },
     "scripts": {
-        "dev:test:pest": "pest"
+        "dev:test:pest": "pest --colors=always"
     }
 }
