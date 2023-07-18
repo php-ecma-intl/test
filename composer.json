@@ -4,10 +4,15 @@
     "license": "BSD-3-Clause",
     "type": "library",
     "keywords": [
+        "ecma402",
+        "i18n",
         "icu",
+        "internationalization",
         "intl",
-        "ecma",
-        "test"
+        "l10n",
+        "localization",
+        "test",
+        "unicode"
     ],
     "require": {
         "php": "^8.2",

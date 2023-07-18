@@ -31,8 +31,8 @@ submodule at `./resources/test262`.
 Since PHP does not follow the same conventions as JavaScript, PHP code
 implementing ECMA-402 will differ from the specification. Where it differs,
 this test suite follows the reference implementation for
-[pecl/ecma\_intl](https://github.com/php-ecma-intl/ext). Polyfills may use
-this test suite to ensure compatibility with pecl/ecma\_intl.
+[pecl/ecma_intl](https://github.com/php-ecma-intl/ext). Polyfills may use
+this test suite to ensure compatibility with pecl/ecma_intl.
 
 This project adheres to a [code of conduct](CODE_OF_CONDUCT.md). By
 participating in this project and its community, you are expected to uphold
@@ -50,7 +50,7 @@ composer require --dev php-ecma-intl/test
 
 ## Usage
 
-Use these tests to ensure your polyfill library conforms to the pecl/ecma\_intl
+Use these tests to ensure your polyfill library conforms to the pecl/ecma_intl
 implementation of [ECMA-402](https://tc39.es/ecma402/).
 
 To add these tests to your project's test runner, add the following to your
@@ -91,12 +91,13 @@ security issue in software that is maintained in this repository, please read
 
 ## Copyright and License
 
-php-ecma-intl/test is copyright © php-ecma-intl contributors and licensed for
-use under the terms of the BSD 3-Clause "New" or "Revised" License (BSD-3-Clause).
-Please see [LICENSE](LICENSE) for more information.
+pecl/ecma_intl is copyright © [php-ecma-intl](https://github.com/php-ecma-intl)
+contributors and licensed for use under the terms of the BSD 3-Clause "New" or
+"Revised" License (BSD-3-Clause). Please see [LICENSE](LICENSE) for more
+information.
 
-php-ecma-intl/test uses copyrighted material under license from the following
-projects:
+php-ecma-intl/test may utilize copyrighted material under license from the
+following projects:
 
 - [Test262: ECMAScript Test Suite](https://github.com/tc39/test262)
 
