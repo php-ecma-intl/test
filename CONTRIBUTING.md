@@ -10,7 +10,7 @@ code.
 
 You can find help and discussion in the following places:
 
-* GitHub Issues: <https://github.com/php-ecma-intl/ext/issues>
+* GitHub Issues: <https://github.com/php-ecma-intl/test/issues>
 
 ## Reporting Bugs
 
@@ -72,11 +72,11 @@ When you do begin working on your feature, here are some guidelines to consider:
   We will use this description to update the CHANGELOG. If there is no
   description, or it does not adequately describe your feature, we may ask you
   to update the description.
-* php-ecma-intl/ext follows a superset of **[PSR-12 coding standard][psr-12]**.
+* php-ecma-intl/test follows a superset of **[PSR-12 coding standard][psr-12]**.
   Please ensure your code does, too. _Hint: run `composer dev:lint` to check._
 * Please **write tests** for any new features you add.
 * Please **ensure that tests pass** before submitting your pull request.
-  php-ecma-intl/ext automatically runs tests for pull requests. However,
+  php-ecma-intl/test automatically runs tests for pull requests. However,
   running the tests locally will help save time. _Hint: run `composer test`._
 * **Use topic/feature branches.** Please do not ask to pull from your main branch.
   * For more information, see "[Understanding the GitHub flow][gh-flow]."
@@ -150,8 +150,13 @@ composer dev:analyze
 
 ### Project Structure
 
-This project uses [pds/skeleton](https://github.com/php-pds/skeleton) as its
-base folder structure and layout.
+Files within this test suite use the [Pest testing framework](https://pestphp.com)
+and are named according to their names and paths within the original Test262
+repository. For example, the test file
+`intl402/Intl/getCanonicalLocales/complex-region-subtag-replacement.php` has a
+corresponding test file in Test262 at the path
+`test/intl402/Intl/getCanonicalLocales/complex-region-subtag-replacement.js`.
+
 
 ### Running Tests
 
@@ -169,9 +174,9 @@ composer test
 CaptainHook will automatically run all tests before pushing to the remote
 repository.
 
-[github]: https://github.com/php-ecma-intl/ext
-[issues]: https://github.com/php-ecma-intl/ext/issues
-[pull requests]: https://github.com/php-ecma-intl/ext/pulls
+[github]: https://github.com/php-ecma-intl/test
+[issues]: https://github.com/php-ecma-intl/test/issues
+[pull requests]: https://github.com/php-ecma-intl/test/pulls
 [psr-12]: https://www.php-fig.org/psr/psr-12/
 [gh-flow]: https://guides.github.com/introduction/flow/
 [conventional commits]: https://www.conventionalcommits.org/

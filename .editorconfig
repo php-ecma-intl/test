@@ -12,14 +12,5 @@ charset = utf-8
 indent_style = space
 indent_size = 4
 
-[*.{c,cpp,h,hpp}]
+[*.{yml,yaml}]
 indent_size = 2
-
-[*.{yml,yaml,m4,w32}]
-indent_size = 2
-
-[*.phpt]
-trim_trailing_whitespace = false
-
-[Makefile.frag]
-indent_style = tab

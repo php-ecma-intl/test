@@ -25,55 +25,26 @@ jobs:
 
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v3.5.3"
-
-      - name: "Check formatting (clang-format)"
-        uses: "jidicula/clang-format-action@v4.11.0"
-        with:
-          clang-format-version: "16"
-          check-path: "src"
-          exclude-regex: "^.*arginfo\\.h$"
-
-  memcheck:
-    name: "Test for Memory Leaks"
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - name: "Checkout repository"
-        uses: "actions/checkout@v3.5.3"
-
-      - name: "Install Valgrind"
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y valgrind
-          valgrind --version
+        uses: "actions/checkout@v3.5.2"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@2.25.2"
         with:
           php-version: "latest"
-          extensions: "intl-70.1"
           coverage: "none"
-        env:
-          debug: true
-          phpts: "ts"
 
       - name: "Install dependencies (Composer)"
         uses: "ramsey/composer-install@2.2.0"
 
-      - name: "Build and install ecma_intl"
-        run: |
-          phpize
-          ./configure --enable-ecma_intl
-          make -j$(nproc)
-          php -d extension="$PWD/modules/ecma_intl.so" --ri ecma_intl
+      - name: "Check syntax (php-parallel-lint)"
+        run: "composer dev:lint:syntax"
 
-      - name: "Run tests (PHPT with memcheck)"
-        run: "composer dev:test:memcheck"
+      - name: "Check coding standards (PHP_CodeSniffer)"
+        run: "composer dev:lint:style"
 
-  tests:
-    name: "Tests: PHP ${{ matrix.php }}, ICU ${{ matrix.icu }}"
-    needs: ["coding-standards", "memcheck"]
+  conformance-tests:
+    name: "Conformance tests"
+    needs: ["coding-standards"]
     runs-on: "ubuntu-latest"
 
     strategy:
@@ -83,44 +54,33 @@ jobs:
           - "8.2"
         icu:
           - "70.1"
-          - "71.1"
-          - "72.1"
-          - "73.1"
 
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v3.5.3"
-
-      - name: "Install Criterion"
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcriterion3 libcriterion-dev
+        uses: "actions/checkout@v3.5.2"
+        with:
+          submodules: true
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.25.4"
+        uses: "shivammathur/setup-php@2.25.2"
         with:
           php-version: "${{ matrix.php }}"
           extensions: "intl-${{ matrix.icu }}"
+          ini-values: "extension=ecma_intl"
           coverage: "none"
-        env:
-          debug: true
-          phpts: "ts"
+
+      - name: "Build and install ecma_intl"
+        run: |
+          cd ./resources/ext/
+          phpize
+          ./configure --enable-ecma_intl
+          make -j$(nproc)
+          sudo make install
+          php --ri ecma_intl
 
       - name: "Install dependencies (Composer)"
         uses: "ramsey/composer-install@2.2.0"
 
-      - name: "Build and install ecma_intl"
-        run: |
-          phpize
-          ./configure --enable-ecma_intl --enable-criterion
-          make -j$(nproc)
-          php -d extension="$PWD/modules/ecma_intl.so" --ri ecma_intl
-
-      - name: "Run tests (PHPT)"
-        run: "composer dev:test:phpt"
-
-      - name: "Run tests (Criterion)"
-        run: "composer dev:test:criterion"
-
-      - name: "Run tests (Pest)"
-        run: "composer dev:test:pest -- --colors=always"
+      - name: "Run conformance tests (Pest)"
+        shell: "bash"
+        run: "composer dev:test:pest"

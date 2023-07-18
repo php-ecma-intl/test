@@ -1,3 +1,6 @@
 [submodule "resources/test262"]
 	path = resources/test262
 	url = https://github.com/tc39/test262.git
+[submodule "resources/ext"]
+	path = resources/ext
+	url = https://github.com/ramsey/php-ecma-intl-ext.git

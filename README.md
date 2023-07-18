@@ -1,7 +1,7 @@
-<h1 align="center">php-ecma-intl/ext</h1>
+<h1 align="center">php-ecma-intl/test</h1>
 
 <p align="center">
-    <strong>A PHP implementation of <a href="https://tc39.es/ecma402/#introduction">ECMA-402</a></strong>
+    <strong>Conformance test suite for pecl/ecma_intl</strong>
 </p>
 
 <!--
@@ -23,16 +23,20 @@ TODO: Make sure the following URLs are correct and working for your project.
 
 ## About
 
-<!--
-TODO: Use this space to provide more details about your package. Try to be
-      concise. This is the introduction to your package. Let others know what
-      your package does and how it can help them build applications.
--->
+This is a PHP port of the `intl402` test suite for [ECMA-402](https://tc39.es/ecma402/)
+from [Test262](https://github.com/tc39/test262). This port is up-to-date with
+Test262, as of the version of Test262 included in this project as a Git
+submodule at `./resources/test262`.
 
+Since PHP does not follow the same conventions as JavaScript, PHP code
+implementing ECMA-402 will differ from the specification. Where it differs,
+this test suite follows the reference implementation for
+[pecl/ecma\_intl](https://github.com/php-ecma-intl/ext). Polyfills may use
+this test suite to ensure compatibility with pecl/ecma\_intl.
 
-This project adheres to a [code of conduct](CODE_OF_CONDUCT.md).
-By participating in this project and its community, you are expected to
-uphold this code.
+This project adheres to a [code of conduct](CODE_OF_CONDUCT.md). By
+participating in this project and its community, you are expected to uphold
+this code.
 
 
 ## Installation
@@ -40,29 +44,42 @@ uphold this code.
 Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ``` bash
-composer require php-ecma-intl/ext
+composer require --dev php-ecma-intl/test
 ```
 
-<!--
+
 ## Usage
 
-Provide a brief description or short example of how to use this library.
-If you need to provide more detailed examples, use the `docs/` directory
-and provide a link here to the documentation.
+Use these tests to ensure your polyfill library conforms to the pecl/ecma\_intl
+implementation of [ECMA-402](https://tc39.es/ecma402/).
 
-``` php
-use Ecma\Example;
+To add these tests to your project's test runner, add the following to your
+project's `phpunit.xml` or `phpunit.xml.dist` file:
 
-$example = new Example();
-echo $example->greet('fellow human');
+```xml
+<testsuites>
+    <testsuite name="ecma_intl conformance">
+        <directory suffix=".php">./vendor/php-ecma-intl/test/tests</directory>
+    </testsuite>
+</testsuites>
 ```
--->
+
+Then, create a file (if you don't already have one) at `tests/Pest.php`, and
+add the following to it:
+
+```php
+include_once __DIR__ . '/vendor/php-ecma-intl/test/harness/testIntl.php';
+```
+
+Now, you may run `vendor/bin/pest --testsuite "ecma_intl conformance"` to
+execute the conformance tests provided by this package.
 
 
 ## Contributing
 
 Contributions are welcome! To contribute, please familiarize yourself with
 [CONTRIBUTING.md](CONTRIBUTING.md).
+
 
 ## Coordinated Disclosure
 
@@ -72,14 +89,15 @@ security issue in software that is maintained in this repository, please read
 [SECURITY.md](SECURITY.md) for instructions on submitting a vulnerability report.
 
 
-
-
-
-
 ## Copyright and License
 
-php-ecma-intl/ext is copyright © [Ben Ramsey](https://benramsey.com)
-and licensed for use under the terms of the
-MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
+php-ecma-intl/test is copyright © php-ecma-intl contributors and licensed for
+use under the terms of the BSD 3-Clause "New" or "Revised" License (BSD-3-Clause).
+Please see [LICENSE](LICENSE) for more information.
 
+php-ecma-intl/test uses copyrighted material under license from the following
+projects:
 
+- [Test262: ECMAScript Test Suite](https://github.com/tc39/test262)
+
+Please see [NOTICE](NOTICE) for more information.

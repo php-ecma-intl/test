@@ -1,4 +1,4 @@
-# php-ecma-intl/ext Changelog
+# php-ecma-intl/test Changelog
 
 All notable changes to this project will be documented in this file.
 
