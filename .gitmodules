@@ -3,4 +3,4 @@
 	url = https://github.com/tc39/test262.git
 [submodule "resources/ext"]
 	path = resources/ext
-	url = https://github.com/ramsey/php-ecma-intl-ext.git
+	url = https://github.com/php-ecma-intl/ext.git
