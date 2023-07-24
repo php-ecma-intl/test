@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Ecma\Intl\Locale;
 
-$langtag = "de-latn-de-u-ca-gregory-co-phonebk-hc-h23-kf-true-kn-false-nu-latn";
+$langtag = 'de-latn-de-u-ca-gregory-co-phonebk-hc-h23-kf-true-kn-false-nu-latn';
 $loc = new Locale($langtag);
 
 test('all getters return the expected results')
