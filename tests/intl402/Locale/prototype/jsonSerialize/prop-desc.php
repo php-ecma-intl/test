@@ -28,10 +28,10 @@ it('has zero parameters')
     ->expect($method->getNumberOfParameters())
     ->toBe(0);
 
-it('returns an array type')
+it('returns an object type')
     ->expect($returnType)
     ->toBeInstanceOf(ReflectionType::class)
     ->and($returnType->allowsNull())
     ->toBeFalse()
     ->and($returnType->getName())
-    ->toBe('array');
+    ->toBe('object');
