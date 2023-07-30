@@ -38,7 +38,11 @@ it('can access every option when all are populated')
 
 it('serializes to a JSON object')
     ->expect(json_encode($options))
-    ->toBe('{"calendar":"gregory","caseFirst":"upper","collation":"emoji","hourCycle":"h23","language":"en","numberingSystem":"latn","numeric":true,"region":"US","script":"Latn"}');
+    ->toBe(
+        '{"calendar":"gregory","caseFirst":"upper","collation":"emoji",'
+        . '"hourCycle":"h23","language":"en","numberingSystem":"latn",'
+        . '"numeric":true,"region":"US","script":"Latn"}',
+    );
 
 it('unpacks to a PHP array')
     ->expect([...$options])

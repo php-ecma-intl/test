@@ -19,4 +19,3 @@ it('combines options using array unpacking')
     ->toBe('{"language":"en","region":"GB"}')
     ->and(json_encode(new Options(...[...$optionsCA, ...$optionsFrench])))
     ->toBe('{"language":"fr","region":"CA"}');
-
