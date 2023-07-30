@@ -4,28 +4,32 @@ declare(strict_types=1);
 
 use Ecma\Intl\Locale\Options;
 
-$emptyOptions = new Options();
+$options = new Options();
 
 it('constructs an object with all properties set to null')
-    ->expect($emptyOptions->calendar)
+    ->expect($options->calendar)
     ->toBeNull()
-    ->and($emptyOptions->caseFirst)
+    ->and($options->caseFirst)
     ->toBeNull()
-    ->and($emptyOptions->collation)
+    ->and($options->collation)
     ->toBeNull()
-    ->and($emptyOptions->hourCycle)
+    ->and($options->hourCycle)
     ->toBeNull()
-    ->and($emptyOptions->language)
+    ->and($options->language)
     ->toBeNull()
-    ->and($emptyOptions->numberingSystem)
+    ->and($options->numberingSystem)
     ->toBeNull()
-    ->and($emptyOptions->numeric)
+    ->and($options->numeric)
     ->toBeNull()
-    ->and($emptyOptions->region)
+    ->and($options->region)
     ->toBeNull()
-    ->and($emptyOptions->script)
+    ->and($options->script)
     ->toBeNull();
 
 it('serializes to an empty JSON object')
-    ->expect(json_encode($emptyOptions))
+    ->expect(json_encode($options))
     ->toBe('{}');
+
+it('unpacks to an empty PHP array')
+    ->expect([...$options])
+    ->toBe([]);

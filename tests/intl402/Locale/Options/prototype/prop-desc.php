@@ -18,6 +18,10 @@ it('implements JsonSerializable')
     ->expect($reflected->implementsInterface(JsonSerializable::class))
     ->toBeTrue();
 
+it('implements Traversable')
+    ->expect($reflected->implementsInterface(Traversable::class))
+    ->toBeTrue();
+
 describe('__construct', function () use ($reflected): void {
     $constructor = $reflected->getMethod('__construct');
 
