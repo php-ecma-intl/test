@@ -22,3 +22,8 @@ it('throws TypeError for a null value', function (): void {
     expect(fn () => new Locale(null))
         ->toThrow(TypeError::class);
 });
+
+it('throws TypeError for a missing value', function (): void {
+    expect(fn () => new Locale())
+        ->toThrow(TypeError::class);
+});
