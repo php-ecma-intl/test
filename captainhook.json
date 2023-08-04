@@ -14,8 +14,12 @@
         ]
     },
     "pre-push": {
-        "enabled": false,
-        "actions": []
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer dev:lint:all"
+            }
+        ]
     },
     "pre-commit": {
         "enabled": true,
