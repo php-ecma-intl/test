@@ -44,8 +44,13 @@ describe('__construct', function () use ($reflected): void {
         $names = array_map(fn (ReflectionNamedType $type): string => $type->getName(), $types);
         sort($names);
 
+        $expected = ['Stringable', 'null', 'string'];
+        if ($name === 'caseFirst') {
+            $expected = ['Stringable', 'false', 'null', 'string'];
+        }
+
         expect($names)
-            ->toBe(['Stringable', 'null', 'string']);
+            ->toBe($expected);
     };
 
     it('is public')
