@@ -25,6 +25,29 @@ it('implements Traversable')
 describe('__construct', function () use ($reflected): void {
     $constructor = $reflected->getMethod('__construct');
 
+    $testParameter = fn (int $index, string $name): Closure => function () use ($index, $name, $constructor): void {
+        $parameter = $constructor->getParameters()[$index] ?? null;
+
+        expect($parameter)
+            ->not->toBeNull()
+            ->and($parameter->getName())
+            ->toBe($name);
+
+        $type = $parameter->getType();
+
+        expect($type)
+            ->toBeInstanceOf(ReflectionUnionType::class)
+            ->and($type->allowsNull())
+            ->toBeTrue();
+
+        $types = $type->getTypes();
+        $names = array_map(fn (ReflectionNamedType $type): string => $type->getName(), $types);
+        sort($names);
+
+        expect($names)
+            ->toBe(['Stringable', 'null', 'string']);
+    };
+
     it('is public')
         ->expect($constructor->isPublic())
         ->toBeTrue();
@@ -37,77 +60,31 @@ describe('__construct', function () use ($reflected): void {
         ->expect($constructor->getNumberOfRequiredParameters())
         ->toBe(0);
 
-    test('its first parameter is $calendar')
-        ->expect($constructor->getParameters()[0]->getName())
-        ->toBe('calendar')
-        ->and($constructor->getParameters()[0]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[0]->getType()?->allowsNull())
-        ->toBeTrue();
+    test('its first parameter is $calendar', $testParameter(0, 'calendar'));
+    test('its second parameter is $caseFirst', $testParameter(1, 'caseFirst'));
+    test('its third parameter is $collation', $testParameter(2, 'collation'));
+    test('its fourth parameter is $hourCycle', $testParameter(3, 'hourCycle'));
+    test('its fifth parameter is $language', $testParameter(4, 'language'));
+    test('its sixth parameter is $numberingSystem', $testParameter(5, 'numberingSystem'));
 
-    test('its second parameter is $caseFirst')
-        ->expect($constructor->getParameters()[1]->getName())
-        ->toBe('caseFirst')
-        ->and($constructor->getParameters()[1]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[1]->getType()?->allowsNull())
-        ->toBeTrue();
+    test('its seventh parameter is $numeric', function () use ($constructor): void {
+        $parameter = $constructor->getParameters()[6] ?? null;
+        expect($parameter)
+            ->not->toBeNull()
+            ->and($parameter->getName())
+            ->toBe('numeric');
 
-    test('its third parameter is $collation')
-        ->expect($constructor->getParameters()[2]->getName())
-        ->toBe('collation')
-        ->and($constructor->getParameters()[2]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[2]->getType()?->allowsNull())
-        ->toBeTrue();
+        $type = $parameter->getType();
+        expect($type)
+            ->toBeInstanceOf(ReflectionType::class)
+            ->and($type->allowsNull())
+            ->toBeTrue()
+            ->and($type->getName())
+            ->toBe('bool');
+    });
 
-    test('its fourth parameter is $hourCycle')
-        ->expect($constructor->getParameters()[3]->getName())
-        ->toBe('hourCycle')
-        ->and($constructor->getParameters()[3]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[3]->getType()?->allowsNull())
-        ->toBeTrue();
-
-    test('its fifth parameter is $language')
-        ->expect($constructor->getParameters()[4]->getName())
-        ->toBe('language')
-        ->and($constructor->getParameters()[4]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[4]->getType()?->allowsNull())
-        ->toBeTrue();
-
-    test('its sixth parameter is $numberingSystem')
-        ->expect($constructor->getParameters()[5]->getName())
-        ->toBe('numberingSystem')
-        ->and($constructor->getParameters()[5]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[5]->getType()?->allowsNull())
-        ->toBeTrue();
-
-    test('its seventh parameter is $numeric')
-        ->expect($constructor->getParameters()[6]->getName())
-        ->toBe('numeric')
-        ->and($constructor->getParameters()[6]->getType()?->getName())
-        ->toBe('bool')
-        ->and($constructor->getParameters()[6]->getType()?->allowsNull())
-        ->toBeTrue();
-
-    test('its eighth parameter is $region')
-        ->expect($constructor->getParameters()[7]->getName())
-        ->toBe('region')
-        ->and($constructor->getParameters()[7]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[7]->getType()?->allowsNull())
-        ->toBeTrue();
-
-    test('its ninth parameter is $script')
-        ->expect($constructor->getParameters()[8]->getName())
-        ->toBe('script')
-        ->and($constructor->getParameters()[8]->getType()?->getName())
-        ->toBe('string')
-        ->and($constructor->getParameters()[8]->getType()?->allowsNull())
-        ->toBeTrue();
+    test('its eighth parameter is $region', $testParameter(7, 'region'));
+    test('its ninth parameter is $script', $testParameter(8, 'script'));
 });
 
 describe('jsonSerialize', function () use ($reflected): void {
