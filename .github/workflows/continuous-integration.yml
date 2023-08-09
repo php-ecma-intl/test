@@ -42,45 +42,45 @@ jobs:
       - name: "Check coding standards (PHP_CodeSniffer)"
         run: "composer dev:lint:style"
 
-  #conformance-tests:
-  #  name: "Conformance tests"
-  #  needs: ["coding-standards"]
-  #  runs-on: "ubuntu-latest"
+  conformance-tests:
+    name: "Conformance tests"
+    needs: ["coding-standards"]
+    runs-on: "ubuntu-latest"
 
-  #  strategy:
-  #    fail-fast: false
-  #    matrix:
-  #      php:
-  #        - "8.2"
-  #      icu:
-  #        - "70.1"
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - "8.2"
+        icu:
+          - "70.1"
 
-  #  steps:
-  #    - name: "Checkout repository"
-  #      uses: "actions/checkout@v3.5.3"
-  #      with:
-  #        submodules: true
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v3.5.3"
+        with:
+          submodules: true
 
-  #    - name: "Install PHP"
-  #      uses: "shivammathur/setup-php@2.25.5"
-  #      with:
-  #        php-version: "${{ matrix.php }}"
-  #        extensions: "intl-${{ matrix.icu }}"
-  #        ini-values: "extension=ecma_intl"
-  #        coverage: "none"
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@2.25.5"
+        with:
+          php-version: "${{ matrix.php }}"
+          extensions: "intl-${{ matrix.icu }}"
+          ini-values: "extension=ecma_intl"
+          coverage: "none"
 
-  #    - name: "Build and install ecma_intl"
-  #      run: |
-  #        cd ./resources/ext/
-  #        phpize
-  #        ./configure --enable-ecma_intl
-  #        make -j$(nproc)
-  #        sudo make install
-  #        php --ri ecma_intl
+      - name: "Build and install ecma_intl"
+        run: |
+          cd ./resources/ext/
+          phpize
+          ./configure --enable-ecma_intl
+          make -j$(nproc)
+          sudo make install
+          php --ri ecma_intl
 
-  #    - name: "Install dependencies (Composer)"
-  #      uses: "ramsey/composer-install@2.2.0"
+      - name: "Install dependencies (Composer)"
+        uses: "ramsey/composer-install@2.2.0"
 
-  #    - name: "Run conformance tests (Pest)"
-  #      shell: "bash"
-  #      run: "composer dev:test:pest"
+      - name: "Run conformance tests (Pest)"
+        shell: "bash"
+        run: "composer dev:test:pest"

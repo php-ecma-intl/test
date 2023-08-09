@@ -10,6 +10,7 @@
     <rule ref="Ramsey">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
         <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <exclude name="Squiz.Classes.ClassFileName.NoMatch"/>
     </rule>
 
 </ruleset>

@@ -11,4 +11,3 @@ it('throws ValueError when language matches the grandfathered production', funct
         ->and(fn () => new Locale('nb', new Options(language: 'no-bok', region: 'NO')))
         ->toThrow(ValueError::class);
 });
-
