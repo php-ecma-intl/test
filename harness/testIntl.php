@@ -1,5 +1,7 @@
 <?php
 
+// phpcs:disable PSR12.Files.FileHeader, Squiz.Functions.GlobalFunction.Found, Generic.Files.LineLength.TooLong
+
 declare(strict_types=1);
 
 /**
@@ -141,6 +143,21 @@ const SANCTIONED_SINGLE_UNITS = [
     'year',
 ];
 
+function newStringable(string $value): Stringable
+{
+    return new class ($value) implements Stringable
+    {
+        public function __construct(private readonly string $value)
+        {
+        }
+
+        public function __toString(): string
+        {
+            return $this->value;
+        }
+    };
+}
+
 /**
  * Tests whether timeZone is a String value representing a structurally valid
  * and canonicalized time zone name, as defined in sections 6.5.1 and 6.5.2 of
@@ -177,8 +194,10 @@ function isCanonicalizedStructurallyValidTimeZoneName(string $timeZone): bool
  * Returns an array of strings for which IsStructurallyValidLanguageTag() returns false
  *
  * @link https://github.com/tc39/test262/blob/8ce9864511c1c83ba2d0b351da3390c9e33fd60e/harness/testIntl.js#L193 getInvalidLanguageTags()
+ *
+ * @return string[]
  */
-function getInvalidLanguageTags()
+function getInvalidLanguageTags(): array
 {
     $invalidLanguageTags = [
         '', // empty tag
@@ -1698,7 +1717,7 @@ function isCanonicalizedStructurallyValidLanguageTag(string $locale): bool
                     $j++;
                 }
 
-                $extension = implode('-', array_slice($subtags, $extensionStart, ($j - $extensionStart)));
+                $extension = implode('-', array_slice($subtags, $extensionStart, $j - $extensionStart));
 
                 while ($j < $i) {
                     $keyStart = $j;
@@ -1758,7 +1777,7 @@ function isCanonicalizedStructurallyValidLanguageTag(string $locale): bool
                     $extension .= '-' . $key . '-' . $value;
                 }
             } else {
-                $extension = implode('-', array_slice($subtags, $extensionStart, ($i - $extensionStart)));
+                $extension = implode('-', array_slice($subtags, $extensionStart, $i - $extensionStart));
             }
 
             $extensions[] = $extension;

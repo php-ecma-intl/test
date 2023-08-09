@@ -10,10 +10,11 @@ $validCaseFirstOptions = [
     'lower',
     'false',
     false,
+    newStringable('upper'),
 ];
 
-it('sets caseFirst options on the locale', function (string | false $test): void {
-    $expected = is_bool($test) ? 'false' : $test;
+it('sets caseFirst options on the locale', function (Stringable | string | false $test): void {
+    $expected = is_bool($test) ? 'false' : (string) $test;
     $expect = "en-u-kf-$expected";
 
     $locale = new Locale('en', new Options(caseFirst: $test));
