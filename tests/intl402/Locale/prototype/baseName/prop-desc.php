@@ -24,10 +24,10 @@ it('is a readonly property')
     ->expect($property->isReadOnly())
     ->toBeTrue();
 
-it('is a string type and does not allow null')
+it('is a string type and allows null values')
     ->expect($type)
     ->toBeInstanceOf(ReflectionType::class)
     ->and($type->allowsNull())
-    ->toBeFalse()
+    ->toBeTrue()
     ->and($type->getName())
     ->toBe('string');

@@ -12,6 +12,7 @@ test('all getters return the expected results')
     ->toBe('de-Latn-DE-u-ca-gregory-co-phonebk-hc-h23-kf-kn-false-nu-latn')
     ->and($loc->baseName)->toBe('de-Latn-DE')
     ->and($loc->calendar)->toBe('gregory')
+    ->and($loc->calendars)->toBe(['gregory'])
     ->and($loc->caseFirst)->toBe('yes')
     ->and($loc->collation)->toBe('phonebk')
     ->and($loc->hourCycle)->toBe('h23')
@@ -19,18 +20,19 @@ test('all getters return the expected results')
     ->and($loc->numberingSystem)->toBe('latn')
     ->and($loc->numeric)->toBeFalse()
     ->and($loc->region)->toBe('DE')
-    ->and($loc->script)->toBe('Latn');
+    ->and($loc->script)->toBe('Latn')
+    ->and($loc->getCalendars())->toBe($loc->calendars);
 
 $loc = new Locale($langtag, new Locale\Options(
-    language: 'ja',
-    script: 'jpan',
-    region: 'jp',
     calendar: 'japanese',
+    caseFirst: 'false',
     collation: 'search',
     hourCycle: 'h24',
-    caseFirst: 'false',
-    numeric: true,
+    language: 'ja',
     numberingSystem: 'jpanfin',
+    numeric: true,
+    region: 'jp',
+    script: 'jpan',
 ));
 
 test('all getters return the expected results after replacing all components through option values')
@@ -38,6 +40,7 @@ test('all getters return the expected results after replacing all components thr
     ->toBe('ja-Jpan-JP-u-ca-japanese-co-search-hc-h24-kf-false-kn-nu-jpanfin')
     ->and($loc->baseName)->toBe('ja-Jpan-JP')
     ->and($loc->calendar)->toBe('japanese')
+    ->and($loc->calendars)->toBe(['japanese'])
     ->and($loc->caseFirst)->toBe('false')
     ->and($loc->collation)->toBe('search')
     ->and($loc->hourCycle)->toBe('h24')
@@ -45,13 +48,14 @@ test('all getters return the expected results after replacing all components thr
     ->and($loc->numberingSystem)->toBe('jpanfin')
     ->and($loc->numeric)->toBeTrue()
     ->and($loc->region)->toBe('JP')
-    ->and($loc->script)->toBe('Jpan');
+    ->and($loc->script)->toBe('Jpan')
+    ->and($loc->getCalendars())->toBe($loc->calendars);
 
 $loc = new Locale($langtag, new Locale\Options(
-    language: 'fr',
-    region: 'ca',
     collation: 'standard',
     hourCycle: 'h11',
+    language: 'fr',
+    region: 'ca',
 ));
 
 test('all getters return the expected results after replacing only some components through option values')
@@ -59,6 +63,7 @@ test('all getters return the expected results after replacing only some componen
     ->toBe('fr-Latn-CA-u-ca-gregory-co-standard-hc-h11-kf-kn-false-nu-latn')
     ->and($loc->baseName)->toBe('fr-Latn-CA')
     ->and($loc->calendar)->toBe('gregory')
+    ->and($loc->calendars)->toBe(['gregory'])
     ->and($loc->caseFirst)->toBe('yes')
     ->and($loc->collation)->toBe('standard')
     ->and($loc->hourCycle)->toBe('h11')
@@ -66,4 +71,5 @@ test('all getters return the expected results after replacing only some componen
     ->and($loc->numberingSystem)->toBe('latn')
     ->and($loc->numeric)->toBeFalse()
     ->and($loc->region)->toBe('CA')
-    ->and($loc->script)->toBe('Latn');
+    ->and($loc->script)->toBe('Latn')
+    ->and($loc->getCalendars())->toBe($loc->calendars);
