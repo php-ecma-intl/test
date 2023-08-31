@@ -20,6 +20,7 @@ $tests = [
     [fn () => new Locale('en', new Locale\Options(calendar: $throwingStringable))],
     [fn () => new Locale('en', new Locale\Options(caseFirst: $throwingStringable))],
     [fn () => new Locale('en', new Locale\Options(collation: $throwingStringable))],
+    [fn () => new Locale('en', new Locale\Options(currency: $throwingStringable))],
     [fn () => new Locale('en', new Locale\Options(hourCycle: $throwingStringable))],
     [fn () => new Locale('en', new Locale\Options(language: $throwingStringable))],
     [fn () => new Locale('en', new Locale\Options(numberingSystem: $throwingStringable))],

@@ -8,6 +8,7 @@ $options = new Options(
     calendar: 'gregory',
     caseFirst: 'upper',
     collation: 'emoji',
+    currency: 'USD',
     hourCycle: 'h23',
     language: 'en',
     numberingSystem: 'latn',
@@ -23,6 +24,8 @@ it('can access every option when all are populated')
     ->toBe('upper')
     ->expect($options->collation)
     ->toBe('emoji')
+    ->expect($options->currency)
+    ->toBe('USD')
     ->expect($options->hourCycle)
     ->toBe('h23')
     ->expect($options->language)
@@ -40,7 +43,7 @@ it('serializes to a JSON object')
     ->expect(json_encode($options))
     ->toBe(
         '{"calendar":"gregory","caseFirst":"upper","collation":"emoji",'
-        . '"hourCycle":"h23","language":"en","numberingSystem":"latn",'
+        . '"currency":"USD","hourCycle":"h23","language":"en","numberingSystem":"latn",'
         . '"numeric":true,"region":"US","script":"Latn"}',
     );
 
@@ -50,6 +53,7 @@ it('unpacks to a PHP array')
         'calendar' => 'gregory',
         'caseFirst' => 'upper',
         'collation' => 'emoji',
+        'currency' => 'USD',
         'hourCycle' => 'h23',
         'language' => 'en',
         'numberingSystem' => 'latn',

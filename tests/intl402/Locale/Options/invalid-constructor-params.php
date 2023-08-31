@@ -19,6 +19,11 @@ it('throws an exception for invalid collation', function (): void {
         ->toThrow(ValueError::class);
 });
 
+it('throws an exception for invalid currency', function (): void {
+    expect(fn () => new Options(currency: 'foobar'))
+        ->toThrow(ValueError::class);
+});
+
 it('throws an exception for invalid hourCycle', function (): void {
     expect(fn () => new Options(hourCycle: 'hour12'))
         ->toThrow(ValueError::class);

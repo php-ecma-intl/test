@@ -57,9 +57,9 @@ describe('__construct', function () use ($reflected): void {
         ->expect($constructor->isPublic())
         ->toBeTrue();
 
-    it('has nine parameters')
+    it('has ten parameters')
         ->expect($constructor->getNumberOfParameters())
-        ->toBe(9);
+        ->toBe(10);
 
     it('does not have required parameters')
         ->expect($constructor->getNumberOfRequiredParameters())
@@ -68,12 +68,13 @@ describe('__construct', function () use ($reflected): void {
     test('its first parameter is $calendar', $testParameter(0, 'calendar'));
     test('its second parameter is $caseFirst', $testParameter(1, 'caseFirst'));
     test('its third parameter is $collation', $testParameter(2, 'collation'));
-    test('its fourth parameter is $hourCycle', $testParameter(3, 'hourCycle'));
-    test('its fifth parameter is $language', $testParameter(4, 'language'));
-    test('its sixth parameter is $numberingSystem', $testParameter(5, 'numberingSystem'));
+    test('its fourth parameter is $currency', $testParameter(3, 'currency'));
+    test('its fifth parameter is $hourCycle', $testParameter(4, 'hourCycle'));
+    test('its sixth parameter is $language', $testParameter(5, 'language'));
+    test('its seventh parameter is $numberingSystem', $testParameter(6, 'numberingSystem'));
 
-    test('its seventh parameter is $numeric', function () use ($constructor): void {
-        $parameter = $constructor->getParameters()[6] ?? null;
+    test('its eighth parameter is $numeric', function () use ($constructor): void {
+        $parameter = $constructor->getParameters()[7] ?? null;
         expect($parameter)
             ->not->toBeNull()
             ->and($parameter->getName())
@@ -88,8 +89,8 @@ describe('__construct', function () use ($reflected): void {
             ->toBe('bool');
     });
 
-    test('its eighth parameter is $region', $testParameter(7, 'region'));
-    test('its ninth parameter is $script', $testParameter(8, 'script'));
+    test('its ninth parameter is $region', $testParameter(8, 'region'));
+    test('its tenth parameter is $script', $testParameter(9, 'script'));
 });
 
 describe('jsonSerialize', function () use ($reflected): void {
