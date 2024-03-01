@@ -34,7 +34,7 @@ jobs:
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@2.2.0"
+        uses: "ramsey/composer-install@3.0.0"
 
       - name: "Check syntax (php-parallel-lint)"
         run: "composer dev:lint:syntax"
@@ -79,7 +79,7 @@ jobs:
           php --ri ecma_intl
 
       - name: "Install dependencies (Composer)"
-        uses: "ramsey/composer-install@2.2.0"
+        uses: "ramsey/composer-install@3.0.0"
 
       - name: "Run conformance tests (Pest)"
         shell: "bash"
